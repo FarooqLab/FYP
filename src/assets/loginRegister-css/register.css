@@ -1,0 +1,217 @@
+/* General Page Styling */
+.parent-dev {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to right, #FFDEE9, #B5FFFC); /* Soft Gradient */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Left and Right Side Layout */
+.left-side, .right-side {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Left Side - Form Section */
+.left-side {
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styling */
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.form-container h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.user-icon {
+    font-size: 60px;
+    color: #DD5CA5;
+    margin-bottom: 10px;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    text-align: left;
+    font-weight: bold;
+    color: #555;
+    margin-top: 10px;
+}
+
+input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s ease-in-out;
+}
+
+input:focus {
+    border-color: #DD5CA5;
+    box-shadow: 0px 0px 5px rgba(221, 92, 165, 0.5);
+}
+
+/* Error Styling */
+.error-msg {
+    color: red;
+    font-size: 14px;
+    
+}
+
+.name-error,
+.email-error {
+    border-color: red !important;
+}
+
+/* Submit Button */
+input[type="submit"] {
+    background: #DD5CA5;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    background: #C34A92;
+}
+
+/* Right Side - Welcome Message */
+.right-side {
+    border: none;
+    background: #DD5CA5;
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+.right-side h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.right-side p {
+    font-size: 1rem;
+    opacity: 0.9;
+    max-width: 80%;
+}
+
+/* Styling for Sign In and Back to Home */
+/* Bottom section container */
+.bottom-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+/* Back to Home Button */
+.back-home {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #DD5CA5;
+    transition: color 0.3s ease-in-out;
+}
+
+.back-home:hover {
+    color: #C34A92;
+}
+
+.back-icon {
+    font-size: 20px;
+    
+}
+
+/* Sign-in text */
+.bottom-section{
+    text-align: center;
+    margin-left: 1rem;
+}
+.signin-text {
+    font-size: 14px;
+    color: #555;
+    
+}
+
+.signin-text a {
+    color: #DD5CA5;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.signin-text a:hover {
+    color: #C34A92;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .parent-dev {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .left-side, .right-side {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .right-side {
+        order: -1; /* Moves welcome message on top */
+        border: none;
+    }
+}
+
+
+.name-error{
+    border: 1px solid #D32F2F;
+}
+
+.email-error{
+    border: 1px solid #D32F2F;
+}

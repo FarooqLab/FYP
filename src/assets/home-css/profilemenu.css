@@ -1,0 +1,31 @@
+.profile-menu{
+    position: relative;
+    
+}
+
+.profile-icon{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.dropdown-menu{
+    position: absolute;
+    right: 0;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu a{
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    text-align: left;
+    display: block;
+}
