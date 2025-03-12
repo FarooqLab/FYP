@@ -1,12 +1,15 @@
 .hero-section{
     height: 100vh;
-    background: linear-gradient(135deg, #007bff, #00ff88);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url("../images/dumbel1.jpg");
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 2rem;
     text-align: center;
-    color: white;
+    color:white;
     gap: 2rem;
 }
 
@@ -37,9 +40,7 @@
     color: #007bff;
 }
 
-.hero-section .logo{
-    height: 300px;
-}
+
 
 @media (max-width: 768px) {
   

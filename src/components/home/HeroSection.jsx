@@ -1,19 +1,20 @@
 import React from 'react';
-import logo from '../../assets/react.svg'
+import logo from '../../assets/images/workout.png'
 import '../../assets/home-css/hero.css'
+import { Link } from 'react-scroll';
 const HeroSection = () => {
   return (
     <section id="/" className="hero-section">
       <div className="hero-content">
         <h1>Welcome to Our Platform</h1>
         <p>Transform your business with our innovative solutions</p>
-        <div className="hero-button">
-          <button className="primary-button">Start Free Trial</button>
-          <button className="secondary-button">Watch Demo</button>
+        <div className="flex gap-3 justify-center items-center ">
+          <button className="w-[150px] h-[50px] bg-gray-500 hover:bg-gray-400 rounded-lg  hover:text-black font-semibold transition-all">Start Free Trial</button>
+          <button className="w-[150px] h-[50px] bg-gray-500 hover:bg-gray-400 rounded-lg hover:text-black font-semibold transition-all">Watch Demo</button>
         </div>
       </div>
       <div>
-        <img src={logo} alt="" className='logo' />
+        <img src={logo} alt="" className='logo md:h-[600px] h-0 mt-[150px] mr-[-40px]' />
       </div>
     </section>
   );

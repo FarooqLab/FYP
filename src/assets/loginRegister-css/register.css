@@ -2,7 +2,7 @@
 .parent-dev {
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to right, #FFDEE9, #B5FFFC); /* Soft Gradient */
+    background: linear-gradient(to right, #564c50, #233c3b); /* Soft Gradient */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,13 +42,15 @@
 .form-container h2 {
     font-size: 28px;
     margin-bottom: 15px;
+    margin-left: -50px;
     color: #333;
 }
 
 .user-icon {
     font-size: 60px;
-    color: #DD5CA5;
+    color: #499389;
     margin-bottom: 10px;
+    margin-left: 120px;
 }
 
 .form-container form {
@@ -74,13 +76,13 @@ input {
 }
 
 input:focus {
-    border-color: #DD5CA5;
-    box-shadow: 0px 0px 5px rgba(221, 92, 165, 0.5);
+    border-color: #34292f;
+    box-shadow: 0px 0px 5px rgba(34, 22, 29, 0.5);
 }
 
 /* Error Styling */
 .error-msg {
-    color: red;
+    color: rgb(37, 24, 24);
     font-size: 14px;
     
 }
@@ -92,7 +94,7 @@ input:focus {
 
 /* Submit Button */
 input[type="submit"] {
-    background: #DD5CA5;
+    background: #292226;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -103,13 +105,17 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background: #C34A92;
+    background:  #499389;
 }
 
 /* Right Side - Welcome Message */
 .right-side {
     border: none;
-    background: #DD5CA5;
+    background-image: linear-gradient(rgba(55, 91, 90, 0.3), rgba(18, 24, 23, 0.3)), 
+    url("../images/register.webp");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
     color: white;
     text-align: center;
     padding: 40px;
@@ -151,12 +157,12 @@ input[type="submit"]:hover {
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
-    color: #DD5CA5;
+    color: #499389;
     transition: color 0.3s ease-in-out;
 }
 
 .back-home:hover {
-    color: #C34A92;
+    color: #1b0e16;
 }
 
 .back-icon {
@@ -176,14 +182,14 @@ input[type="submit"]:hover {
 }
 
 .signin-text a {
-    color: #DD5CA5;
+    color: #499389;
     font-weight: bold;
     text-decoration: none;
     transition: color 0.3s ease-in-out;
 }
 
 .signin-text a:hover {
-    color: #C34A92;
+    color: #499389;
 }
 
 

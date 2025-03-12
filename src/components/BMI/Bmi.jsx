@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { data } from "react-router";
 import './bmi.css'
+import ExercisePlan from "../exercises/ExercisePlan";
 
 const Bmi = () => {
   const {
@@ -83,6 +84,8 @@ const Bmi = () => {
           </div>
         )}
       </div>
+       {/* Show Exercise Plan below BMI results */}
+       {status && <ExercisePlan status={status} />}
     </div>
   );
 };

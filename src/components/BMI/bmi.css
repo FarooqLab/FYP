@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 .bmi-container{
-    background-color: black;
+    background-color:#b2e3dbdd;
     height: 100vh;
     display: flex;
     justify-content: center;

@@ -22,8 +22,8 @@ body{
     position: fixed;
     width: 100%;
     top: 0;
-   background-color: var(--white);
-   color: var(--black);
+   background-color: var(--black);
+   color:var(--white);
    padding: 1rem 0;
    display: flex;
    justify-content: center;
@@ -49,10 +49,8 @@ body{
  }
 
  .nav-links :hover{
-    color: #007bff;
+    color: #2e6b7a;
  }
-
- 
 
 
  @media (max-width: 768px) {

@@ -72,12 +72,7 @@ const Register = () => {
       </div>
 
       <div className="right-side">
-        <h1>Welcome Back</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
-          reprehenderit! Facere ex eum explicabo, dolorum rerum ipsum distinctio
-          inventore voluptatibus.
-        </p>
+        <h1 className="font-bold text-3xl text-[#442c48]">Welcome<br/><span>Back</span> </h1>
       </div>
     </div>
   );
