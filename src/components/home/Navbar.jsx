@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-scroll";
 import "../../assets/home-css/navbar.css";
-import logo from "../../assets/images/logo.jpg";
+import logo from "../../assets/images/gym.png";
 import ProfileMenu from "./ProfileMenu";
 const Navbar = () => {
   //menu function
@@ -14,8 +14,8 @@ const Navbar = () => {
             src={logo}
             alt="FitNurish"
             style={{
-              width: "90px",
-              height: "80px",
+              width: "70px",
+              height: "60px",
               border: "none",
               outline: "none",
             }}
