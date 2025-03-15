@@ -12,20 +12,27 @@
 
 .feature-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    transition: background-color 0.3s ease ,transform 0.3s ease
 }
 
 .feature-card{
     background-color: #fff;
     color: #1e1e2f;
     border: none;
+    width: 15rem;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
+}
+.feature-container :hover{
+    background-color: #07201F;
+    color: #f8f9fa;
+    transform: translateY(-12px);
 }
 
 @media (max-width: 768px) {
