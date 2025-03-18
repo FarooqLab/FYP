@@ -1,16 +1,19 @@
 import React from 'react';
 import logo from '../../assets/images/workout.png'
 import '../../assets/home-css/hero.css'
-import { Link } from 'react-scroll';
+import { Link } from 'react-router-dom';
 const HeroSection = () => {
+ 
   return (
     <section id="/" className="hero-section">
       <div className="hero-content">
-        <h1>Welcome to Our Platform</h1>
-        <p>Transform your business with our innovative solutions</p>
-        <div className="flex gap-3 justify-center items-center ">
-          <button className="w-[150px] h-[50px] bg-gray-500 hover:bg-gray-400 rounded-lg  hover:text-black font-semibold transition-all">Start Free Trial</button>
-          <button className="w-[150px] h-[50px] bg-gray-500 hover:bg-gray-400 rounded-lg hover:text-black font-semibold transition-all">Watch Demo</button>
+        <h1>Your Fitness Journey Starts with<span className='fitnurish'>FitNurish</span></h1>
+        <p>Fuel Your Body, Transform Your Life</p>
+        <div className="hero-button">
+          <Link to='/register'>
+          <button>Join Us</button></Link>
+          
+          {/* <button >Watch Demo</button> */}
         </div>
       </div>
       <div>

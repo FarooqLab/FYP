@@ -13,6 +13,14 @@ const Register = () => {
 
   const onSubmit = (data) => {
     console.log("submitting form", data);
+
+    // Save user data to local storage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push(data);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Optionally, you can redirect the user to the login page after registration
+    // history.push("/login");
   };
 
   return (
@@ -36,7 +44,7 @@ const Register = () => {
                 },
               })}
             />
-            {errors.Name && <p className="error-msg">{errors.Name.message}</p>}
+            {/* {errors.Name && <p className="error-msg">{errors.Name.message}</p>} */}
 
             <label>Email</label>
             <input
@@ -49,12 +57,12 @@ const Register = () => {
                 },
               })}
             />
-            {errors.Email && (
+            {/* {errors.Email && (
               <p className="error-msg">{errors.Email.message}</p>
-            )}
+            )} */}
 
-            <label>Password</label>
-            <input
+            <label htmlFor="">Password</label>
+            <input className={errors.Password ? "password-error" : ""}
               type="password"
               {...register("Password", { required: true, minLength: 4 })}
             />
@@ -63,7 +71,7 @@ const Register = () => {
           </form>
           <div className="bottom-section">
             <p className="signin-text">
-              Alredy have an account? <Link to="/login">Sign in</Link>
+              Alredy have an account? <Link to="/login">Login in</Link>
             </p>
           </div>
         </div>
@@ -72,7 +80,7 @@ const Register = () => {
       </div>
 
       <div className="right-side">
-        <h1 className="font-bold text-3xl text-[#442c48]">Welcome<br/><span>Back</span> </h1>
+        <h1 className="font-bold text-3xl text-[#442c48]">Welcome<br/><span>to</span><br/><span>FitNurish</span> </h1>
       </div>
     </div>
   );

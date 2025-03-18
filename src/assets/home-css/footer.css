@@ -1,41 +1,81 @@
 .footer {
-    background-color: #222;
-    color: #fff;
-    padding: 40px 20px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.footer-section {
+  margin: 10px;
+  flex: 1 1 200px;
+}
+
+.footer-section h4 {
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.newsletter {
+  margin: 20px 0;
+}
+
+.newsletter input {
+  padding: 10px;
+  width: 200px;
+  margin-right: 10px;
+  color: #333;
+}
+
+.newsletter button {
+  padding: 10px 20px;
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.newsletter button:hover {
+  background-color: #1F7D53;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  border-top: 1px solid #444;
+  padding-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    flex: 1 1 100%;
     text-align: center;
   }
-  
-  .footer-content {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-  
-  .footer-section {
-    max-width: 200px;
-  }
-  
-  .footer-section h4 {
-    font-size: 1.2rem;
+
+  .newsletter input {
+    width: 100%;
     margin-bottom: 10px;
-    color: #f8f8f8;
   }
-  
-  .footer-section p {
-    font-size: 1rem;
-    color: #bbb;
-    cursor: pointer;
-    transition: color 0.3s ease-in-out;
+
+  .newsletter button {
+    width: 100%;
   }
-  
-  .footer-section p:hover {
-    color: #fff;
-  }
-  
-  .footer-bottom {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #bbb;
-  }
-  
+}

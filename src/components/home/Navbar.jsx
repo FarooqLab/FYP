@@ -18,21 +18,22 @@ const Navbar = () => {
               height: "60px",
               border: "none",
               outline: "none",
+              cursor:'pointer'
             }}
           />
         </Link>
 
         <ul className="nav-links">
-          <Link to="/" smooth={true} duration={500}>
+          <Link to="/" smooth={true} duration={300}>
             <li>Home</li>
           </Link>
-          <Link to="feature" smooth={true} duration={500}>
+          <Link to="feature" smooth={true} duration={300}>
             <li>Features</li>
           </Link>
-          <Link to="team" smooth={true} duration={500}>
+          <Link to="team" smooth={true} duration={300}>
             <li>Our Team</li>
           </Link>
-          <Link to="faq" smooth={true} duration={500}>
+          <Link to="faq" smooth={true} duration={300}>
             <li>FAQ's</li>
           </Link>
         </ul>

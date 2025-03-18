@@ -3,7 +3,7 @@ import Accordion from "react-bootstrap/Accordion";
 
 const FAQ = () => {
   return (
-    <div className='bg-[#2c7172] text-center'>
+    <div className='bg-[#2c7172] text-center' id='faq'>
       <h1>FAQ's</h1>
       <Accordion defaultActiveKey="0" flush>
       <Accordion.Item eventKey="0">

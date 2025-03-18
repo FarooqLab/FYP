@@ -43,6 +43,7 @@ body{
     padding-right: 6rem;
  }
 
+
  .nav-links{
    position: relative;
     list-style-type: none;
@@ -53,8 +54,8 @@ body{
  }
 
 
- .nav-links :hover{
-    color: #2e6b7a;
+ .nav-links  li:hover{
+  color: darkgreen;
  }
 
 

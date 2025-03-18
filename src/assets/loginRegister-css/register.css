@@ -59,14 +59,14 @@
     gap: 10px;
 }
 
-label {
+.form-container label {
     text-align: left;
     font-weight: bold;
     color: #555;
     margin-top: 10px;
 }
 
-input {
+.form-container input {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -88,7 +88,8 @@ input:focus {
 }
 
 .name-error,
-.email-error {
+.email-error,
+.password-error {
     border-color: red !important;
 }
 
@@ -107,6 +108,12 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background:  #499389;
 }
+
+input[type="submit"]:active {
+    background-color: #00807a;
+    transform: scale(0.95); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  }
 
 /* Right Side - Welcome Message */
 .right-side {
@@ -134,8 +141,7 @@ input[type="submit"]:hover {
     max-width: 80%;
 }
 
-/* Styling for Sign In and Back to Home */
-/* Bottom section container */
+
 .bottom-section {
     display: flex;
     align-items: center;
@@ -194,16 +200,20 @@ input[type="submit"]:hover {
 
 
 
-/* Responsive Design */
-@media (max-width: 900px) {
-    .parent-dev {
+
+@media (max-width: 700px) {
+    /* .parent-dev {
         flex-direction: column;
         height: auto;
+    } */
+
+    .right-side{
+        display: none;
     }
 
-    .left-side, .right-side {
+    .left-side{
         width: 100%;
-        height: auto;
+        height: 100%;
         padding: 20px;
     }
 

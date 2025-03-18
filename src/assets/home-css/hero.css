@@ -14,13 +14,27 @@
 }
 
 .hero-content h1{
+    line-height: 65px;
     font-size: 3rem;
+    width: 500px;
     margin-bottom: 1rem;
+    font-weight: 700;
+}
+.fitnurish{
+    color: black;
+    background-color:#1F7D53;
+    border: none;
+    border-radius: 8px; 
+    padding-top: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 5px;
 }
 
 .hero-content p{
     font-size: 1.2rem;
     margin-bottom: 2rem;
+    font-weight: 400px;
 }
 
 .hero-button{
@@ -31,13 +45,18 @@
 }
 
 .hero-button button{
+    width: 200px;
     border: none;
     padding: 1rem 2rem;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 1.2rem;
     cursor: pointer;
-    background-color: aliceblue;
-    color: #007bff;
+    background-color: white      ;
+    color: black;
+    font-weight: 600;
+}
+.hero-button button:hover{
+    background-color: #1F7D53;
 }
 
 

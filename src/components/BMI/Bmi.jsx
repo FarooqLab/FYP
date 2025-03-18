@@ -84,8 +84,8 @@ const Bmi = () => {
           </div>
         )}
       </div>
-       {/* Show Exercise Plan below BMI results */}
-       {status && <ExercisePlan status={status} />}
+       {/* Show Exercise Plan below BMI results
+       {status && <ExercisePlan status={status} />} */}
     </div>
   );
 };
