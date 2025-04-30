@@ -1,9 +1,10 @@
 import "../../assets/loginRegister-css/register.css";
 import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
-import { IoArrowBack } from "react-icons/io5"; // Back Arrow Icon
-import { Link } from "react-router-dom"; // For navigation
+import { Link, useNavigate } from "react-router-dom";
 import { TiHome } from "react-icons/ti";
+import { toast } from "react-toastify";
+
 const Register = () => {
   const {
     register,
@@ -11,23 +12,32 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("submitting form", data);
+  const navigate = useNavigate();
 
-    // Save user data to local storage
+  const onSubmit = (data) => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if email already exists
+    const userExists = users.some((user) => user.Email === data.Email);
+    if (userExists) {
+      toast.error("User already exists!");
+      return;
+    }
+
     users.push(data);
     localStorage.setItem("users", JSON.stringify(users));
+    toast.success("Registered successfully!");
 
-    // Optionally, you can redirect the user to the login page after registration
-    // history.push("/login");
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000); // delay for user to see toast
   };
 
   return (
     <div className="parent-dev">
       <div className="left-side">
         <Link to="/" className="back-home">
-          <TiHome  className="back-icon" />
+          <TiHome className="back-icon" />
         </Link>
         <div className="form-container">
           <FaUserCircle className="user-icon" />
@@ -36,33 +46,19 @@ const Register = () => {
             <label>Username</label>
             <input
               className={errors.Name ? "name-error" : ""}
-              {...register("Name", {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: "Should be at least 3 characters",
-                },
-              })}
+              {...register("Name", { required: true, minLength: 3 })}
             />
-            {/* {errors.Name && <p className="error-msg">{errors.Name.message}</p>} */}
 
             <label>Email</label>
             <input
               className={errors.Email ? "email-error" : ""}
               type="email"
-              {...register("Email", {
-                required: {
-                  value: true,
-                  message: "Email is required",
-                },
-              })}
+              {...register("Email", { required: true })}
             />
-            {/* {errors.Email && (
-              <p className="error-msg">{errors.Email.message}</p>
-            )} */}
 
-            <label htmlFor="">Password</label>
-            <input className={errors.Password ? "password-error" : ""}
+            <label>Password</label>
+            <input
+              className={errors.Password ? "password-error" : ""}
               type="password"
               {...register("Password", { required: true, minLength: 4 })}
             />
@@ -71,16 +67,20 @@ const Register = () => {
           </form>
           <div className="bottom-section">
             <p className="signin-text">
-              Alredy have an account? <Link to="/login">Login in</Link>
+              Already have an account? <Link to="/login">Login in</Link>
             </p>
           </div>
         </div>
-
-        {/* Back to Home & Sign-in Section */}
       </div>
 
       <div className="right-side">
-        <h1 className="font-bold text-3xl text-[#442c48]">Welcome<br/><span>to</span><br/><span>FitNurish</span> </h1>
+        <h1 className="font-bold text-3xl text-[#442c48]">
+          Welcome
+          <br />
+          <span>to</span>
+          <br />
+          <span>FitNurish</span>
+        </h1>
       </div>
     </div>
   );

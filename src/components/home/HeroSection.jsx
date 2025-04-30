@@ -1,19 +1,25 @@
-import React from 'react';
-import logo from '../../assets/images/workout.png'
-import '../../assets/home-css/hero.css'
+import React, { useEffect, useState } from 'react';
+import logo from '../../assets/images/workout.png';
+import '../../assets/home-css/hero.css';
 import { Link } from 'react-router-dom';
+
 const HeroSection = () => {
- 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    setIsLoggedIn(!!user);
+  }, []);
+
   return (
     <section id="/" className="hero-section">
       <div className="hero-content">
-        <h1>Your Fitness Journey Starts with<span className='fitnurish'>FitNurish</span></h1>
+        <h1>Your Fitness Journey Starts with <span className='fitnurish'>FitNurish</span></h1>
         <p>Fuel Your Body, Transform Your Life</p>
         <div className="hero-button">
-          <Link to='/register'>
-          <button>Join Us</button></Link>
-          
-          {/* <button >Watch Demo</button> */}
+          <Link to={isLoggedIn ? "/bmi" : "/register"}>
+            <button>{isLoggedIn ? "Get Started" : "Join Us"}</button>
+          </Link>
         </div>
       </div>
       <div>
