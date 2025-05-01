@@ -45,6 +45,7 @@
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.3s ease;
+  color: black;
 }
 
 .input-field label{
@@ -85,3 +86,24 @@
         font-size: 18px;
         color: #555;
       }
+
+.show-exercise-plan {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.show-exercise-plan span {
+  margin-right: 8px;
+}
+
+.show-exercise-plan:hover {
+  background-color: #45a049;
+}

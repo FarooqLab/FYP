@@ -1,44 +1,59 @@
 import "../../assets/loginRegister-css/login.css";
-import React from "react";
+import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { TiHome } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
+  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find(
-      (user) => user.Email === data.email && user.Password === data.password
-    );
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+        data,
+        { withCredentials: true }
+      );
 
-    if (user) {
-      localStorage.setItem("loggedInUser", JSON.stringify(user));
-      toast.success("Login successful!");
+      if (response.data.success) {
+        const { user, token } = response.data;
 
-      // ✅ Get the redirect path and navigate there
-      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
-      localStorage.removeItem("redirectAfterLogin");
+        localStorage.setItem('userId', user._id);
+        if (token) {
+          localStorage.setItem('token', token);
+        }
 
-      setTimeout(() => {
-        navigate(redirectPath);
-      }, 1000);
-    } else {
-      toast.error("Invalid credentials!");
+        toast.success("You are logged in!");
+        reset();
+
+        navigate("/bmi", {
+          state: { userId: user._id }
+        });
+      } else {
+        setLoginError(response.data.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      const msg = error.response?.data?.message || "Login failed. Please try again.";
+      setLoginError(msg);
     }
   };
 
   return (
     <div className="parent-dev">
+      <ToastContainer />
       <div className="left-side">
         <Link to="/" className="back-home">
           <TiHome className="back-icon" />
@@ -50,28 +65,37 @@ const Login = () => {
             <label>Email</label>
             <input
               type="email"
+              {...register("email", { required: "Email is required" })}
               className={errors.email ? "email-error" : ""}
-              {...register("email", { required: true })}
             />
+            {errors.email && <p className="error-msg">{errors.email.message}</p>}
+
             <label>Password</label>
             <input
               type="password"
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 4, message: "Minimum 4 characters required" }
+              })}
               className={errors.password ? "password-error" : ""}
-              {...register("password", { required: true, minLength: 4 })}
             />
-            <input type="submit" value="Submit" />
+            {errors.password && <p className="error-msg">{errors.password.message}</p>}
+
+            {loginError && <p className="error-msg">{loginError}</p>}
+
+            <input type="submit" value="Login" />
           </form>
           <div className="bottom-section">
             <p className="signin-text">
-              Not have an account? <Link to="/register">Register</Link>
+              Don't have an account? <Link to="/register">Register</Link>
             </p>
           </div>
         </div>
       </div>
+
       <div className="right-side">
         <h1 className="font-bold text-3xl text-[#442c48]">
-          Welcome
-          <br />
+          Welcome <br />
           <span>Back</span>
         </h1>
       </div>

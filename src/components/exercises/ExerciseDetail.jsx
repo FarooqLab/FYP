@@ -15,7 +15,7 @@ const ExerciseDetail = () => {
                     `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`,
                     {
                         headers: {
-                            "X-RapidAPI-Key": "6d18465d1dmsha5acecb2f7e0f99p187ed3jsn610aec4a13b5",
+                            "X-RapidAPI-Key": import.meta.env.VITE_API_KEY,
                             "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
                         },
                     }
