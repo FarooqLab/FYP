@@ -1,64 +1,61 @@
-.profile-menu{
-    position: relative;
-    
-}
-
-.profile-icon{
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.dropdown-menu{
-    position: absolute;
-    right: 0;
-    background: white;
-    color: black;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-}
-
-.dropdown-menu a{
-    text-decoration: none;
-    color: black;
-    padding: 5px;
-    cursor: pointer;
-    text-align: left;
-    display: block;
+.profile-menu {
+  position: relative;
+  display: inline-block;
 }
 
 .profile-icon {
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: gray;
-  }
-  
-  .profile-icon.logged-in {
-    color: green; /* Change this to your preferred "logged-in" color */
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    right: 0;
-    margin-top: 8px;
-    padding: 10px;
-    z-index: 10;
-    border-radius: 6px;
-  }
-  
-  .dropdown-menu a,
-  .dropdown-menu button {
-    display: block;
-    margin: 5px 0;
-    text-decoration: none;
-    color: #333;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: gray;
+}
+
+.profile-icon.logged-in {
+  color: green; /* or your preferred color */
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-width: 140px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+  display: block;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.dropdown-user {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.logout-btn {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.logout-btn:hover {
+  background: #d32f2f;
+}

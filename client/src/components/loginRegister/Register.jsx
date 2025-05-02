@@ -1,73 +1,104 @@
 import "../../assets/loginRegister-css/register.css";
 import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
 import { TiHome } from "react-icons/ti";
-import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import axios from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
-
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, data, {
+        withCredentials: true
+      });
 
-    // Check if email already exists
-    const userExists = users.some((user) => user.Email === data.Email);
-    if (userExists) {
-      toast.error("User already exists!");
-      return;
+      if (res.data.success) {
+        toast.success("You are registered successfully!");
+        reset();
+        setTimeout(() => navigate("/login"), 1500);
+      } else {
+        toast.error(res.data.message || "Registration failed.");
+      }
+    } catch (error) {
+      const msg = error.response?.data?.message;
+      if (msg?.includes("already")) {
+        toast.error("Email already exists");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     }
-
-    users.push(data);
-    localStorage.setItem("users", JSON.stringify(users));
-    toast.success("Registered successfully!");
-
-    setTimeout(() => {
-      navigate("/login");
-    }, 1000); // delay for user to see toast
   };
 
   return (
     <div className="parent-dev">
+      <ToastContainer />
       <div className="left-side">
         <Link to="/" className="back-home">
           <TiHome className="back-icon" />
         </Link>
+
         <div className="form-container">
           <FaUserCircle className="user-icon" />
           <h2>Register</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>Username</label>
             <input
-              className={errors.Name ? "name-error" : ""}
-              {...register("Name", { required: true, minLength: 3 })}
+              type="text"
+              {...register("name", {
+                required: "Name is required",
+                minLength: {
+                  value: 3,
+                  message: "Should be at least 3 characters"
+                }
+              })}
+              className={errors.name ? "name-error" : ""}
             />
+            {errors.name && <p className="error-msg">{errors.name.message}</p>}
 
             <label>Email</label>
             <input
-              className={errors.Email ? "email-error" : ""}
               type="email"
-              {...register("Email", { required: true })}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Invalid email format"
+                }
+              })}
+              className={errors.email ? "email-error" : ""}
             />
+            {errors.email && <p className="error-msg">{errors.email.message}</p>}
 
             <label>Password</label>
             <input
-              className={errors.Password ? "password-error" : ""}
               type="password"
-              {...register("Password", { required: true, minLength: 4 })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 4,
+                  message: "Password should be at least 4 characters"
+                }
+              })}
+              className={errors.password ? "password-error" : ""}
             />
+            {errors.password && <p className="error-msg">{errors.password.message}</p>}
 
             <input type="submit" value="Register" />
           </form>
+
           <div className="bottom-section">
             <p className="signin-text">
-              Already have an account? <Link to="/login">Login in</Link>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </div>
         </div>
@@ -75,11 +106,7 @@ const Register = () => {
 
       <div className="right-side">
         <h1 className="font-bold text-3xl text-[#442c48]">
-          Welcome
-          <br />
-          <span>to</span>
-          <br />
-          <span>FitNurish</span>
+          Welcome<br /><span>to</span><br /><span>FitNurish</span>
         </h1>
       </div>
     </div>

@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { data } from "react-router";
-import './bmi.css'
-import ExercisePlan from "../exercises/ExercisePlan";
+import './bmi.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Bmi = () => {
   const {
@@ -15,77 +14,108 @@ const Bmi = () => {
   const [weight, setWeight] = useState("");
   const [bmi, setBmi] = useState(null);
   const [status, setStatus] = useState("");
+  const [userId, setUserId] = useState(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Fetch userId from navigate state OR from localStorage
+  useEffect(() => {
+    if (location.state?.userId) {
+      setUserId(location.state.userId);
+    } else {
+      const storedUserId = localStorage.getItem('userId');
+      if (storedUserId) {
+        setUserId(storedUserId);
+      } else {
+        // Agar userId na ho, back to login
+        navigate('/login');
+      }
+    }
+  }, [location.state, navigate]);
 
   const calculateBmi = () => {
     if (height && weight) {
       const heightInMeters = height / 100;
       const bmiResult = (weight / (heightInMeters * heightInMeters)).toFixed(2);
       setBmi(bmiResult);
-      if (bmiResult < 18) {
-        setStatus("Under weight");
-      } else if (bmiResult >= 18.5 && bmiResult < 24.9) {
-        setStatus("Normal weight");
-      } else if (bmiResult >= 25 && bmiResult < 29.9) {
-        setStatus("Over weight");
+
+      if (bmiResult < 18.5) {
+        setStatus("Underweight");
+      } else if (bmiResult >= 18.5 && bmiResult < 25) {
+        setStatus("Normal");
+      } else if (bmiResult >= 25 && bmiResult < 30) {
+        setStatus("Overweight");
       } else {
         setStatus("Obese");
       }
     } else {
-      alert("Please Enter both height and weight");
+      alert("Please enter both height and weight.");
     }
   };
+
   const resetValues = () => {
     setHeight("");
     setWeight("");
-    setBmi("");
+    setBmi(null);
+    setStatus("");
   };
+
+  const goToExercisePlan = () => {
+    navigate("/exercise", {
+      state: { bmiCategory: status, bmiScore: bmi, userId }
+    });
+  };
+
   return (
     <div className="bmi-container">
       <div className="bmi-calculator">
         <h1>BMI Calculator</h1>
-        <div onSubmit={handleSubmit(data)} className="input-field">
-          <label>Height</label>
+
+        <form onSubmit={handleSubmit(calculateBmi)} className="input-field">
+          <label>Height (cm)</label>
           <input
             {...register("height", { required: true })}
-            
             type="number"
             id="height"
-            onChange={(e) => {
-              setHeight(e.target.value);
-            }}
+            onChange={(e) => setHeight(e.target.value)}
             value={height}
-            placeholder="Enter you height"
+            placeholder="Enter your height (cm)"
+            className="input-box"
           />
-                    {errors.height && <p>Enter Height{console.log("error")}</p>}
-        </div>
+          {errors.height && <p className="error-text">Height is required</p>}
+        </form>
+
         <div className="input-field">
-          <label>Weight</label>
+          <label>Weight (kg)</label>
           <input
             {...register("weight", { required: true })}
             type="number"
-            id="weigh"
-            onChange={(e) => {
-              setWeight(e.target.value);
-            }}
+            id="weight"
+            onChange={(e) => setWeight(e.target.value)}
             value={weight}
-            placeholder="Enter your weight"
+            placeholder="Enter your weight (kg)"
+            className="input-box"
           />
+          {errors.weight && <p className="error-text">Weight is required</p>}
         </div>
-        <div className="bmi-button">
-          <button onClick={calculateBmi}>Calculate</button>
-          <button onClick={resetValues}>Reset</button>
 
+        <div className="bmi-button">
+          <button type="button" onClick={calculateBmi}>Calculate</button>
+          <button type="button" onClick={resetValues}>Reset</button>
         </div>
 
         {bmi && (
           <div className="bmi-result">
-            <h2>Your BMI:{bmi}</h2>
-            <p>Status:{status}</p>
+            <h2>Your BMI: {bmi}</h2>
+            <p>Status: {status}</p>
+
+            <button className="show-exercise-plan" onClick={goToExercisePlan}>
+              <span>↓</span> Go to Exercise Plan
+            </button>
           </div>
         )}
       </div>
-       {/* Show Exercise Plan below BMI results
-       {status && <ExercisePlan status={status} />} */}
     </div>
   );
 };
