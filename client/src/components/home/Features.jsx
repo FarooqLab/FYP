@@ -1,21 +1,28 @@
 import "../../assets/home-css/feature.css";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Features = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('loggedInUser'));
-    setIsLoggedIn(!!user);
+    const token = localStorage.getItem('authToken');
+    
+    
+    if (token) {
+      setIsLoggedIn(true);  
+    } else {
+      setIsLoggedIn(false); 
+    }
   }, []);
 
   const handleFeatureClick = (path) => {
     if (isLoggedIn) {
       navigate(path);
     } else {
-      // Save intended destination
+     
       localStorage.setItem("redirectAfterLogin", path);
       navigate("/login");
     }
@@ -23,7 +30,7 @@ const Features = () => {
 
   return (
     <div className="programs" id="feature">
-      <h1>The best Features We Offers For You</h1>
+      <h1>The best Features We Offer For You</h1>
       <div className="programs-grid">
         <div className="program-card">
           <h2>BMI</h2>

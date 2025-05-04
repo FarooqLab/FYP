@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router";
-import "./calorie.css"; // Correctly import the CSS file
+import { Link } from "react-router-dom"; // Correct import
+import "./calorie.css";
 
 const CalorieCal = () => {
   const [gender, setGender] = useState("");
@@ -39,6 +39,9 @@ const CalorieCal = () => {
       setCalories(calculatedCalories);
       setDietPlan(createDietPlan(calculatedCalories));
       setError("");
+
+      // Save to localStorage
+      localStorage.setItem("userBMR", JSON.stringify(calculatedCalories));
     } else {
       setError("Invalid input values");
       setCalories(null);
@@ -88,6 +91,7 @@ const CalorieCal = () => {
 
     return { breakfast, lunch, dinner };
   };
+
   return (
     <div className="app-container">
       <div className="calculator-container">
@@ -179,37 +183,23 @@ const CalorieCal = () => {
               <h2>Your Results</h2>
               <div className="calorie-result">
                 <span>Daily Calories:</span>
-                <span className="calorie-number">{calories}</span>
+                <span className="calorie-number">{Math.round(calories)}</span>
               </div>
 
               {dietPlan && (
                 <div className="diet-plan">
                   <h3>Recommended Diet Plan</h3>
                   <div className="meal-plan">
-                    <div className="meal">
-                      <h4>Breakfast</h4>
-                      {dietPlan.breakfast.map((item, index) => (
-                        <div key={index} className="meal-item">
-                          {item.name} - {item.calories}kcal ({item.weight}g)
-                        </div>
-                      ))}
-                    </div>
-                    <div className="meal">
-                      <h4>Lunch</h4>
-                      {dietPlan.lunch.map((item, index) => (
-                        <div key={index} className="meal-item">
-                          {item.name} - {item.calories}kcal ({item.weight}g)
-                        </div>
-                      ))}
-                    </div>
-                    <div className="meal">
-                      <h4>Dinner</h4>
-                      {dietPlan.dinner.map((item, index) => (
-                        <div key={index} className="meal-item">
-                          {item.name} - {item.calories}kcal ({item.weight}g)
-                        </div>
-                      ))}
-                    </div>
+                    {["breakfast", "lunch", "dinner"].map((meal) => (
+                      <div key={meal} className="meal">
+                        <h4>{meal.charAt(0).toUpperCase() + meal.slice(1)}</h4>
+                        {dietPlan[meal].map((item, index) => (
+                          <div key={index} className="meal-item">
+                            {item.name} - {item.calories}kcal ({item.weight}g)
+                          </div>
+                        ))}
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}

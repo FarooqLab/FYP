@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import './bmi.css';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const Bmi = () => {
   const {
@@ -17,42 +18,45 @@ const Bmi = () => {
   const [userId, setUserId] = useState(null);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
-  // Fetch userId from navigate state OR from localStorage
   useEffect(() => {
-    if (location.state?.userId) {
-      setUserId(location.state.userId);
-    } else {
-      const storedUserId = localStorage.getItem('userId');
-      if (storedUserId) {
-        setUserId(storedUserId);
-      } else {
-        // Agar userId na ho, back to login
-        navigate('/login');
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/me`, {
+          withCredentials: true,
+        });
+        console.log("User fetched:", res.data); 
+        setUserId(res.data.user._id); 
+      } catch (error) {
+        console.error("Not logged in, redirecting...", error);
+        navigate("/login");
       }
-    }
-  }, [location.state, navigate]);
+    };
+    fetchUser();
+  }, [navigate]);
+  
 
   const calculateBmi = () => {
     if (height && weight) {
       const heightInMeters = height / 100;
       const bmiResult = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+  
+      let category = "";
+      if (bmiResult < 18.5) category = "Underweight";
+      else if (bmiResult >= 18.5 && bmiResult < 25) category = "Normal";
+      else if (bmiResult >= 25 && bmiResult < 30) category = "Overweight";
+      else category = "Obese";
+  
+      // Set state
       setBmi(bmiResult);
-
-      if (bmiResult < 18.5) {
-        setStatus("Underweight");
-      } else if (bmiResult >= 18.5 && bmiResult < 25) {
-        setStatus("Normal");
-      } else if (bmiResult >= 25 && bmiResult < 30) {
-        setStatus("Overweight");
-      } else {
-        setStatus("Obese");
-      }
+      setStatus(category);
+  
+  
     } else {
       alert("Please enter both height and weight.");
     }
   };
+  
 
   const resetValues = () => {
     setHeight("");
@@ -62,9 +66,14 @@ const Bmi = () => {
   };
 
   const goToExercisePlan = () => {
-    navigate("/exercise", {
-      state: { bmiCategory: status, bmiScore: bmi, userId }
-    });
+    if (bmi && status && userId) {
+      // Ensure bmi and status are set properly before navigating
+      navigate("/exercise", {
+        state: { bmiCategory: status, bmiScore: bmi, userId }
+      });
+    } else {
+      alert("Please calculate your BMI first!");
+    }
   };
 
   return (
@@ -110,7 +119,11 @@ const Bmi = () => {
             <h2>Your BMI: {bmi}</h2>
             <p>Status: {status}</p>
 
-            <button className="show-exercise-plan" onClick={goToExercisePlan}>
+            <button 
+              className="show-exercise-plan" 
+              onClick={goToExercisePlan}
+              disabled={!bmi || !status || !userId} // Ensure no navigation without proper data
+            >
               <span>↓</span> Go to Exercise Plan
             </button>
           </div>
