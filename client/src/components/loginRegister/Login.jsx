@@ -2,7 +2,7 @@ import "../../assets/loginRegister-css/login.css";
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { TiHome } from "react-icons/ti";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,29 +18,39 @@ const Login = () => {
 
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/"; 
 
   const onSubmit = async (data) => {
     try {
+      
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
         data,
         { withCredentials: true }
       );
-
+  
       if (response.data.success) {
-        const { user, token } = response.data;
-
-        localStorage.setItem('userId', user._id);
-        if (token) {
-          localStorage.setItem('token', token);
-        }
-
         toast.success("You are logged in!");
+  
+        
+        const userRes = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/auth/me`,
+          { withCredentials: true }
+        );
+  
+        const user = userRes.data;
+  
+       
+        localStorage.setItem("userId", user._id);
+        if (response.data.token) {
+          localStorage.setItem("authToken", response.data.token); 
+        }
+  
+       
         reset();
-
-        navigate("/bmi", {
-          state: { userId: user._id }
-        });
+        navigate("/", { replace: true }); 
+  
       } else {
         setLoginError(response.data.message || "Login failed");
       }
@@ -49,8 +59,8 @@ const Login = () => {
       const msg = error.response?.data?.message || "Login failed. Please try again.";
       setLoginError(msg);
     }
-  };
-
+  };  
+  
   return (
     <div className="parent-dev">
       <ToastContainer />
