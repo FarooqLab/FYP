@@ -1,14 +1,12 @@
-
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../assets/home-css/footer.css';
+import Exercise from '../../pages/Exercise';
 
 const footerSections = [
   {
     title: 'FitNurish',
     items: [
-      { name: 'About Us', path: '/about' },
       { name: 'Why us', path: '/why-us' },
       { name: 'Security', path: '/security' },
       { name: 'Partnership', path: '/partnership' },
@@ -17,9 +15,9 @@ const footerSections = [
   {
     title: 'Basic Exercises',
     items: [
-      { name: 'Strength Training', path: '/exercise/strength' },
-      { name: 'Cardio', path: '/exercise/cardio' },
-      { name: 'Weight Loss', path: '/exercise/weight-loss' },
+      { name: 'Strength Training', path: '/exercise' },
+      { name: 'Cardio', path: '/exercise' },
+      { name: 'Weight Loss', path: '/exercise' },
     ],
   },
   {
@@ -40,8 +38,27 @@ const footerSections = [
   },
 ];
 
+// Mapping for pop-up messages
+const popupMessages = {
+  '/why-us': 'Our Support Center is here to help you. Contact us anytime.',
+  '/partnership': 'Our Support Center is here to help you. Contact us anytime.',
+  '/terms': 'These are the Terms & Conditions of using FitNurish. Make sure you read and understand them.',
+  '/privacy': 'We respect your privacy. Your data is secured and will never be shared.',
+  '/security': 'Security is our top priority. We use the latest technologies to keep your data safe.',
+  '/support': 'Our Support Center is here to help you. Contact us anytime.',
+};
 
 const Footer = () => {
+  const [popupContent, setPopupContent] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleItemClick = (path) => {
+    if (popupMessages[path]) {
+      setPopupContent(popupMessages[path]);
+      setShowPopup(true);
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -52,7 +69,13 @@ const Footer = () => {
               {section.items.map((item, i) => (
                 <li key={i}>
                   {item.path ? (
-                    <Link to={item.path}>{item.name}</Link>
+                    <span
+                      className="footer-link"
+                      onClick={() => handleItemClick(item.path)}
+                      style={{ cursor: 'pointer', color: 'teal' }}
+                    >
+                      {item.name}
+                    </span>
                   ) : (
                     item.name
                   )}
@@ -63,16 +86,21 @@ const Footer = () => {
         ))}
       </div>
 
-      <div className="newsletter">
-        <h4>Subscribe Us</h4>
-        <input type="email" placeholder="Enter Your Email" />
-        <button>Subscribe</button>
-      </div>
-
       <div className="footer-bottom">
         <p>©2025 (FarooqLab). All Copyrights reserved.</p>
       </div>
+
+      {/* Popup Box */}
+      {showPopup && (
+        <div className="footer-popup-overlay">
+          <div className="footer-popup-box">
+            <p>{popupContent}</p>
+            <button onClick={() => setShowPopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </footer>
   );
 };
-export default Footer
+
+export default Footer;

@@ -13,17 +13,42 @@ const CalorieCal = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
+    const numericAge = parseInt(age);
+    const numericHeight = parseFloat(height);
+    const numericWeight = parseFloat(weight);
+  
     if (!gender || !age || !height || !weight) {
       setError("Please fill in all fields");
       setCalories(null);
       setDietPlan(null);
       return;
     }
-
-    const calculation = 10 * weight + 6.25 * height - 5 * age;
+  
+    if (numericAge < 10 || numericAge > 120) {
+      setError("Please enter a valid age between 10 and 120.");
+      setCalories(null);
+      setDietPlan(null);
+      return;
+    }
+  
+    if (numericHeight < 50 || numericHeight > 250) {
+      setError("Please enter a valid height between 50 cm and 250 cm.");
+      setCalories(null);
+      setDietPlan(null);
+      return;
+    }
+  
+    if (numericWeight < 20 || numericWeight > 300) {
+      setError("Please enter a valid weight between 20 kg and 300 kg.");
+      setCalories(null);
+      setDietPlan(null);
+      return;
+    }
+  
+    const calculation = 10 * numericWeight + 6.25 * numericHeight - 5 * numericAge;
     let calculatedCalories = 0;
-
+  
     switch (gender) {
       case "male":
         calculatedCalories = calculation + 5;
@@ -34,9 +59,9 @@ const CalorieCal = () => {
       default:
         calculatedCalories = 0;
     }
-
+  
     if (calculatedCalories > 0) {
-      setCalories(calculatedCalories);
+      setCalories(Math.round(calculatedCalories));
       setDietPlan(createDietPlan(calculatedCalories));
       setError("");
     } else {
@@ -45,6 +70,7 @@ const CalorieCal = () => {
       setDietPlan(null);
     }
   };
+  
 
   const createDietPlan = (calories) => {
     const breakfast = [
